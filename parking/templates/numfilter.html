@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'main' %}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+        <div class="page-header d-flex align-items-center" style="background-image: url('static/assets/img/page-header.jpg');">
+          <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+              <div class="col-lg-6 text-center">
+                <h2>Vehicle Details</h2>
+                <p>Below are the Details of All Vehicles which are Park or Exit from our Warehouse</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav>
+          <div class="container">
+            <ol>
+              <li><a href="home">Home</a></li>
+              <li>Add Vehicle</li>
+            </ol>
+          </div>
+        </nav>
+      </div><!-- End Breadcrumbs -->
+<!------------------------------------------------->
+      <div class="container text-white">
+        <form  action="" method="POST">
+          {% csrf_token %}
+          <input type="text" name="q" placeholder="Search Blog">
+          <button type="submit" >Search</button>
+        </form>
+        
+      </div>
+<!------------------------------------------------->
+      <div class="container">
+        <div class="row">
+
+            
+
+
+            <div class="md-12">
+
+                <table class="table">
+                    <tr>
+                        <th>Sr.no</th>
+                        <th>Token Number</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Vehicle Type</th>
+                        <th>Vehicle Number</th>
+                        <th>Park Date and Time</th>
+                        <th>Exit Date and Time</th>
+                        <th>Payment Status</th>
+                        <th>Exit Vehicle</th>
+                    </tr>
+                    
+                    {% for x in data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{x.token}}</td>
+                        <td>{{x.Name}}</td>
+                        <td>{{x.phone}}</td>
+                        {% if x.v_type == 1 %}
+                            <td>Two Wheeler</td>
+                        {% else %}
+                            <td>Four Wheeler</td>
+                        {% endif %}
+                        <td>{{x.v_number}}</td>
+                        <td>{{x.Created_on}}</td>
+                        <td></td>
+                        {% if x.payment == 1 %}
+                            <td>Paid</td>
+                        {% else %}
+                            <td>Not Paid</td>
+                        {% endif %}
+                        
+
+                        <td><a href="/exit"> <button class="btn btn-warning">EXIT</button></a></td>
+                        
+                    </tr>
+                    {% endfor %}
+
+                   
+
+                    
+                </table>
+
+            </div>
+            
+            
+        </div>
+
+    </div>
+  
+
+
+
+</main>
+
+
+{% endblock 'main'  %}

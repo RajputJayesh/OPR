@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'main' %}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+        <div class="page-header d-flex align-items-center" style="background-image: url('static/assets/img/page-header.jpg');">
+          <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+              <div class="col-lg-6 text-center">
+                <h2>Update Vehicle Details</h2>
+                <p>Below are the Details of Vehicles which are Need to Update</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav>
+          <div class="container">
+            <ol>
+              <li><a href="home">Home</a></li>
+              <li>Update Vehicle</li>
+            </ol>
+          </div>
+        </nav>
+      </div><!-- End Breadcrumbs -->
+
+      <!-- ======= Get a Quote Section ======= -->
+    <section id="get-a-quote" class="get-a-quote">
+        <div class="container" data-aos="fade-up">
+  
+          <div class="row g-0">
+  
+            <div class="col-lg-5 quote-bg" style="background-image: url(static/assets/img/quote-bg.jpg);"></div>
+  
+            <div class="col-lg-7">
+              {% for x in data %}
+              <form action="/exit/{{x.id}}" method="POST" >
+                {% csrf_token %}
+
+                <div class="row gy-4 php-email-form">
+  
+                  <div class="col-lg-12">
+                    <h4>Exit Vehicle Details</h4>
+                  </div>
+
+                  <div class="col-md-12">
+                    <input type="text" name="token" class="form-control" value="{{x.token}}" placeholder="Token Number">
+                    {% if msgt %}
+                    <span class="text-danger"><b>{{msgt}}</b></span>
+                    {% endif %}
+                  </div>
+  
+                  <div class="col-md-12">
+                    <input type="text" name="name" class="form-control" value="{{x.Name}}" placeholder="Name">
+                    {% if msgna %}
+                    <span class="text-danger"><b>{{msgna}}</b></span>
+                    {% endif %}
+                  </div>
+                  <div class="col-md-12">
+                    <input type="text" class="form-control" name="phone" value="{{x.phone}}" placeholder="Phone">
+                    {% if msgph %}
+                    <span class="text-danger"><b>{{msgph}}</b></span>
+                    {% endif %}
+                  </div>
+<!--
+                  <div class="col-md-12">
+                    <select class="form-select" name="cat" aria-label="Default select example">
+                        <option>Vehicle Type</option>
+                        <option value="1">Two Wheeler</option>
+                        <option value="2">Four Wheeler</option>
+                        
+                    </select> 
+                    {% if msgvt %}
+                    <span class="text-danger"><b>{{msgvt}}</b></span>
+                    {% endif %}
+                  </div>
+-->
+                  <div class="mb-3">
+                    {% if x.v_type == 1  %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" value="1" id="activeid" checked>
+                        <label class="form-check-label" for="activeid">
+                         &nbsp;   Two Wheeler
+                        </label>
+                        
+                        
+                    </div>
+                    <br>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" value="2" id="Inactiveid" >
+                        <label class="form-check-label" for="Inactiveid">
+                          &nbsp; Four Wheeler
+                        </label>
+                    </div>
+                    {% else %}
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="status" value="1" id="activeid">
+                      <label class="form-check-label" for="activeid">
+                       &nbsp;   Two Wheeler
+                      </label>
+                      
+                      
+                  </div>
+                  <br>
+
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="status" value="2" id="Inactiveid" checked>
+                      <label class="form-check-label" for="Inactiveid">
+                        &nbsp; Four Wheeler
+                      </label>
+                  </div>
+
+                    {% endif %}
+
+
+                    {% if msgvt %}
+                    <span class="text-danger"><b>{{msgvt}}</b></span>
+                    {% endif %}
+                    
+                    
+                  </div>
+
+                  <div class="col-md-12">
+                    <input type="text" name="vehicle_number" class="form-control" value="{{x.v_number}}" placeholder="Vehicle Number">
+                    {% if msgvn %}
+                    <span class="text-danger"><b>{{msgvn}}</b></span>
+                    {% endif %}
+                  </div>
+  
+                  
+  
+                  <!--
+                  <div class="col-md-12">
+                    <select class="form-select" name="payment" aria-label="Default select example">
+                        <option>Payment Status</option>
+                        <option value="1">Paid</option>
+                        <option value="2">Not Paid</option>
+                        
+                    </select>
+                    
+                  </div>-->
+                  <div class="mb-3">
+                    {% if x.payment == 1  %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="payment" value="1" id="paid" checked>
+                        <label class="form-check-label" for="paid">
+                         &nbsp;   Paid
+                        </label>
+                        
+                        
+                    </div>
+                    <br>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="payment" value="2" id="notpaid" >
+                        <label class="form-check-label" for="notpaid">
+                          &nbsp; Not Paid
+                        </label>
+                    </div>
+                    {% else %}
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="payment" value="1" id="paid">
+                      <label class="form-check-label" for="paid">
+                       &nbsp;   Paid
+                      </label>
+                      
+                      
+                  </div>
+                  <br>
+
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="payment" value="2" id="notpaid" checked>
+                      <label class="form-check-label" for="notpaid">
+                        &nbsp; Not Paid
+                      </label>
+                  </div>
+
+
+                    {% endif %}
+
+
+
+                    {% if msgpay %}
+                    <span class="text-danger"><b>{{msgpay}}</b></span>
+                    {% endif %}
+                    
+                    
+                  </div>
+                  <div class="col-md-12">
+                    
+                    <input type="text" name="v_park" class="form-control" value="{{user.first_name}} {{user.last_name}}">
+                    
+                  </div>
+  
+                  <div class="col-md-12 text-center">
+                    <!--<div class="loading">Loading</div>-->
+                  <!--  <div class="error-message"></div>-->
+                  <!--  <div class="sent-message">Your quote request has been sent successfully. Thank you!</div>-->
+  
+                    <button type="submit">Exit</button>
+                  </div>
+  
+                </div>
+              </form>
+              {% endfor %}
+            </div><!-- End Quote Form -->
+  
+
+
+
+</main>
+
+
+{% endblock 'main'  %}
